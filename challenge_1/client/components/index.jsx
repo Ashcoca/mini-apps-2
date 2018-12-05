@@ -20,7 +20,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-
+        Look I'm for real!
       </div>
     );
   }
