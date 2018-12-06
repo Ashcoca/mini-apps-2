@@ -25,7 +25,7 @@ class Home extends React.Component {
     .then(data => {
       this.setState({
         pageCount: Math.ceil(data.length / 10)
-      })
+      });
     })
     .catch(error => this.setState({ error, isLoading: false }));
 
@@ -33,17 +33,17 @@ class Home extends React.Component {
   };
 
   handlePageClick(data) {
-    let selected = data.selected 
+    let selected = data.selected; 
 
     fetch(`${this.props.url}?_page=${selected}&_limit=${this.props.perPage}`)
     .then(response => response.json())
     .then(data => {
       this.setState({
         records: data,
-      })
+      });
     })
     .catch(error => this.setState({ error, isLoading: false }));
-  }
+  };
 
   //Why does this work?
   handleChange(e) {
@@ -60,10 +60,10 @@ class Home extends React.Component {
     .then(data => {
       this.setState({
         records: data
-      })
+      });
     })
     .catch(error => this.setState({ error, isLoading: false }));
-  }
+  };
 
 
   render() {
@@ -85,7 +85,7 @@ class Home extends React.Component {
                        subContainerClassName={"pages pagination"}
                        activeClassName={"active"} />
         </div>
-      )
+      );
     } else {
       return (
         <div>

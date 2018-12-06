@@ -16,8 +16,8 @@ const List = (props) => {
         {props.data.map(item => <ListItem item={item}/>)}
       </table>
     </div>
-  )
-}
+  );
+};
 
 
 export default List;
