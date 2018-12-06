@@ -24,7 +24,8 @@ class Home extends React.Component {
     .then(response => response.json())
     .then(data => {
       this.setState({
-        pageCount: Math.ceil(data.length / 10)
+        pageCount: Math.ceil(data.length / 10),
+        isLoading: false
       });
     })
     .catch(error => this.setState({ error, isLoading: false }));
@@ -33,7 +34,7 @@ class Home extends React.Component {
   };
 
   handlePageClick(data) {
-    let selected = data.selected; 
+    let selected = data.selected;
 
     fetch(`${this.props.url}?_page=${selected}&_limit=${this.props.perPage}`)
     .then(response => response.json())
@@ -67,7 +68,7 @@ class Home extends React.Component {
 
 
   render() {
-    if (this.state.isLoading) {
+    if (!this.state.isLoading) {
       return (
         <div>
           <List data={this.state.records}/>
