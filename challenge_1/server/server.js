@@ -13,7 +13,6 @@
 
 
 // app.listen(PORT, () => {
-//   console.log(`
 
 const path = require('path');
 const jsonServer = require('json-server');
@@ -26,9 +25,7 @@ const router = jsonServer.router(path.join(__dirname, '../data/db.json'));
 
 server.use(middlewares);
 server.use(router);
-
-
-
+server.use(jsonServer.bodyParser);
 
 
 
