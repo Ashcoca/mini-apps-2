@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
-import List from './List.jsx'
+import List from './List.jsx';
+import Search from './Search.jsx';
 
 
 class Home extends React.Component {
@@ -9,28 +10,14 @@ class Home extends React.Component {
     this.state = {
       records: [],
       pageCount: null,
+      search: '',
       isLoading: true,
       error: null,
-      page: 1,
     }
-    this.getDataFromServer = this.getDataFromServer.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
-
-
-  getDataFromServer() {
-    fetch(`${this.props.url}?_page=${this.state.page}&_limit=${this.props.perPage}`)
-    .then(response => response.json())
-    .then(data => {  
-      this.setState({
-        records: data,
-        isLoading: false,
-        page: this.state.page + 1,
-      });
-    })
-    .catch(error => this.setState({ error, isLoading: false }));
-  };
-
 
   componentDidMount() {
     fetch('http://localhost:3000/events')
@@ -42,11 +29,11 @@ class Home extends React.Component {
     })
     .catch(error => this.setState({ error, isLoading: false }));
 
-    this.getDataFromServer();
+    this.handlePageClick(1);
   };
 
   handlePageClick(data) {
-    let selected = data.selected;
+    let selected = data.selected 
 
     fetch(`${this.props.url}?_page=${selected}&_limit=${this.props.perPage}`)
     .then(response => response.json())
@@ -59,11 +46,31 @@ class Home extends React.Component {
     .catch(error => this.setState({ error, isLoading: false }));
   }
 
+  handleChange(e) {
+    let newState = this.state;
+    let query = e.target.value;
+    newState.search = query
+  };
+
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.search)
+    fetch(`${this.props.url}?q=${this.state.search}&_limit=10`)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({
+        records: data
+      })
+    })
+    .catch(error => this.setState({ error, isLoading: false }));
+  }
+
+
   render() {
     if (this.state.records.length > 1) {
       return (
         <div>
-          <Search />
+          <Search submit={this.handleSubmit} input={this.handleChange}/>
           <List data={this.state.records}/>
           <ReactPaginate previousLabel={"previous"}
                        nextLabel={"next"}
