@@ -8,8 +8,8 @@ const List = (props) => {
         <tr>
           <th>Event Date</th>
           <th>Description of Event</th> 
-          <th>Data</th>
           <th>Category</th>
+          <th>Category Data</th>
           <th>Lang</th>
           <th>Detail</th>
         </tr>
