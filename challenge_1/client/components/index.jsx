@@ -67,7 +67,7 @@ class Home extends React.Component {
 
 
   render() {
-    if (this.state.records.length > 1) {
+    if (this.state.isLoading) {
       return (
         <div>
           <List data={this.state.records}/>
