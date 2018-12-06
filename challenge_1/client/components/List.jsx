@@ -3,7 +3,7 @@ import ListItem from './ListItem.jsx'
 
 const List = (props) => {
   return (
-    <div className="list-div">
+    <div className="pure-table pure-table-bordered">
       <table>
         <tr>
           <th>Date</th>

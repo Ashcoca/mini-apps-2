@@ -20,7 +20,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/events')
+    fetch(`${this.props.url}`)
     .then(response => response.json())
     .then(data => {
       this.setState({
@@ -70,8 +70,9 @@ class Home extends React.Component {
     if (this.state.records.length > 1) {
       return (
         <div>
-          <Search submit={this.handleSubmit} input={this.handleChange}/>
           <List data={this.state.records}/>
+          <br />
+          <Search submit={this.handleSubmit} input={this.handleChange}/>
           <ReactPaginate previousLabel={"previous"}
                        nextLabel={"next"}
                        breakLabel={"..."}
