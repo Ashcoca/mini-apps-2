@@ -6,10 +6,10 @@ const List = (props) => {
     <div className="pure-table pure-table-bordered">
       <table>
         <tr>
-          <th>Date</th>
-          <th>Description</th> 
-          <th>Info</th>
+          <th>Event Date</th>
+          <th>Description of Event</th> 
           <th>Data</th>
+          <th>Category</th>
           <th>Lang</th>
           <th>Detail</th>
         </tr>
