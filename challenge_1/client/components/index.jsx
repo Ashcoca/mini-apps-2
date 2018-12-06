@@ -40,12 +40,12 @@ class Home extends React.Component {
     .then(data => {
       this.setState({
         records: data,
-        page: selected
       })
     })
     .catch(error => this.setState({ error, isLoading: false }));
   }
 
+  //Why does this work?
   handleChange(e) {
     let newState = this.state;
     let query = e.target.value;
@@ -54,7 +54,7 @@ class Home extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state.search)
+
     fetch(`${this.props.url}?q=${this.state.search}&_limit=10`)
     .then(response => response.json())
     .then(data => {
