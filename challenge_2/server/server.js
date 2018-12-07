@@ -11,12 +11,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '../public')));
 
+const formatDate = (date) => {
+  let today = new Date(date);
+  let month = '' + (today.getMonth() + 1);
+  let day = '' + today.getDate();
+  let year = '' + today.getFullYear();
+  month.length < 2 ? month = '0' + month : month = month;
+  day.length < 2 ? day = '0' + day : day = day; 
+
+  return [year, month, day].join('-');
+};
+
 app.get('/currentprice', (req, res) => {
-  // let prev = new Date();
-  // prev.setDate(1);
-  // prev.setMonth(prev.getMonth()-1);
-  // let current = new Date()
-  fetch('https://api.coindesk.com/v1/bpi/historical/close.json?start=&end=<VALUE>')
+  let currentDate = new Date();
+  formatDate(currentDate)
+
+  fetch('https://api.coindesk.com/v1/bpi/historical/close.json')
     .then(response => response.json())
     .then(data => {
       res.send(data);
