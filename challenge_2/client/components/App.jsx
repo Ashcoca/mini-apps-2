@@ -7,12 +7,10 @@ class App extends React.Component {
     this.state = {
       labels: [],
       values: [],
-      data: [],
+      data: null,
       isLoading: true,
       error: null
     }; 
-    this.setChartData = this.setChartData.bind(this);
-
   }
 
   componentDidMount() {
@@ -26,34 +24,47 @@ class App extends React.Component {
       })
     })
     .catch(error => this.setState({ error, isLoading: false}))
-    this.setChartData();
   };
 
-  setChartData() {
-    console.log("hello")
+  componentDidUpdate() {
     const chartData = {
       labels: this.state.labels,
-      datasets: [{
-      label: "My First dataset",
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: this.state.values,
-      }]
-    }
-    while(this.state.data.length) {
+      datasets: [
+        {
+          label: 'Bitcoin Price',
+          fill: true,
+          lineTension: 0.1,
+          backgroundColor: 'rgba(75,192,192,0.4)',
+          borderColor: 'rgba(75,192,192,1)',
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: 'rgba(75,192,192,1)',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: this.state.values
+        }
+      ]
+    };
     this.setState({
       data: chartData,
       isLoading: false
     })
   }
-};
 
 
   render() {
     if (!this.state.isLoading) {
       return (
         <div>
-          <Chart />
+          <Chart data={this.state.data}/>
         </div>
       );
     } else {
