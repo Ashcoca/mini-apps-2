@@ -8,9 +8,12 @@ class App extends React.Component {
       labels: [],
       values: [],
       data: null,
+      start: null,
+      end: null,
       isLoading: true,
       error: null
     }; 
+    this.enterDate = this.enterDate.bind(this);
   }
 
   componentDidMount() {
@@ -59,12 +62,22 @@ class App extends React.Component {
     });
   };
 
+  enterDate() {
+    console.log(this.state.start)
+    console.log(this.start.end)
+  }
 
   render() {
     if (!this.state.isLoading) {
       return (
         <div>
           <Chart data={this.state.data}/>
+          <label>Enter start date: 
+            <input type="date" value={this.state.start} onChange={this.enterDate}></input>
+          </label>
+          <label> Enter end date: 
+            <input type="date" value={this.state.end} onChange={this.enterDate}></input>
+          </label>
         </div>
       );
     } else {
