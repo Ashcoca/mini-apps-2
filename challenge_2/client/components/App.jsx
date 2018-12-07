@@ -51,7 +51,7 @@ class App extends React.Component {
           pointHitRadius: 10,
           data: this.state.values
         }
-      ];
+      ]
     };
     this.setState({
       data: chartData,
