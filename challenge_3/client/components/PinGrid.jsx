@@ -14,7 +14,10 @@ const Pins = (props) => (
     <span className="pins">8</span>
     <span className="pins">9</span>
     <br/>
-    <span className="pins">10</span>
+    <span className="pins">0</span>
+    <br/>
+    <span className="pins">Spare</span>
+    <span className="pins">Strike</span>
   </div>
 );
 
