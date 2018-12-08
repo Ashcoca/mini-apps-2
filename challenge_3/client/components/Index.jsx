@@ -10,18 +10,21 @@ class Bowling extends React.Component {
       pendingScore: 0,
       turn: 1,
       round: 0,
+      gameover: false
     }
     this.pinsHit = this.pinsHit.bind(this);
     this.bonusPins = this.bonusPins.bind(this);
+    this.newGame = this.newGame.bind(this);
   }
 
   pinsHit(e) {
-    // if (e.target.innerText === "Strike" || "Spare") {
-    //   this.bonusPins();
-    //   return;
-    // }
+    if (e.target.id === "bonus") {
+      return
+    }
     if (this.state.round === 10) {
-      alert(`Game Over! You scored ${this.state.score.slice(-1)[0]}`)
+      this.setState({
+        gameover: true
+      })
     }
     let hit = parseInt(e.target.innerText);
     if (this.state.turn === 1) {
@@ -31,6 +34,10 @@ class Bowling extends React.Component {
       });
     };
     if (this.state.turn === 2) {
+      if ((hit + this.state.pendingScore) > 10) {
+        alert("No cheating! Please enter a valid score!");
+        return;
+      };
       hit += this.state.pendingScore;
       hit += this.state.score.slice(-1)[0] || 0;
       this.setState({
@@ -43,28 +50,41 @@ class Bowling extends React.Component {
   };
 
   bonusPins() {
-
+    //this is where I should write the actual bowling rules!
   };
+
+  newGame() {
+    this.setState({
+      score: [],
+      turn: 1,
+      round: 0,
+      gameover: false
+    })
+  }
 
   render() {
-    return (
-      <div>
-        <h2>Enter # of Pins</h2>
-        <Pins click={this.pinsHit}/>
-        <br/>
-        <h5>Pins knocked over: {this.state.pendingScore}</h5>
-        <br/>
-        <Scorecard data={this.state.score}/>
-      </div>
-    );
+    if (this.state.gameover) {
+      return(
+        <div>
+          <h1>{`Game Over! You scored ${this.state.score.slice(-1)[0]}.`}</h1>
+          <img class="bowling-pin-1" src="https://lh3.google.com/u/0/d/0B1-GEHdXK13VX0V2Q2g4Ry03RUE=w2560-h1310-iv1"/>
+          <img class="bowling-ball" src="https://lh3.google.com/u/0/d/0B1-GEHdXK13VcnVGOGh5VmxFM1U=w2560-h1310-iv1"/>
+          <br/>
+          <button onClick={this.newGame}>Play Again</button>
+        </div>
+      );
+    } if (!this.state.gameover) {
+      return (
+        <div>
+          <h3>Let's Bowl! Select the # of Pins You Hit!</h3>
+          <Pins click={this.pinsHit}/>
+          <br/>
+          <h5>Pins knocked over: {this.state.pendingScore}</h5>
+          <br/>
+          <Scorecard data={this.state.score}/>
+        </div>
+      );
+    };
   };
-};
-
+}
 export default Bowling;
-
-
-
-/*
-<img class="bowling-ball" src="https://lh3.google.com/u/0/d/0B1-GEHdXK13VcnVGOGh5VmxFM1U=w2560-h1310-iv1"/>
-<img class="bowling-pin-1" src="https://lh3.google.com/u/0/d/0B1-GEHdXK13VX0V2Q2g4Ry03RUE=w2560-h1310-iv1"/>
-*/
